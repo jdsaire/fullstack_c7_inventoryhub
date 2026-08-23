@@ -1,5 +1,20 @@
 var builder = WebApplication.CreateBuilder(args);
+
+// Registers the CORS services that the UseCors middleware below depends on.
+// Without this the app compiles but throws at startup ("Unable to resolve service
+// for type 'ICorsService'"), so it is required for the policy to work at all.
+builder.Services.AddCors();
+
 var app = builder.Build();
+
+// Course-literal, demo-permissive CORS policy: it accepts any origin, method, and header.
+// This is NOT a production security stance and protects against nothing — it exists so the
+// Blazor front-end (a different origin during local development) can reach this API at all.
+// A real deployment would name the specific allowed origin instead.
+app.UseCors(policy =>
+    policy.AllowAnyOrigin()
+          .AllowAnyMethod()
+          .AllowAnyHeader());
 
 app.MapGet("/api/productlist", () =>
 {
