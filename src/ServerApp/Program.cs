@@ -1,7 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("/api/products", () =>
+app.MapGet("/api/productlist", () =>
 {
     return new[]
     {

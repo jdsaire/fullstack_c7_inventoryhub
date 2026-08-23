@@ -32,7 +32,7 @@
     {
         try
         {
-            var response = await Http.GetAsync("/api/products");
+            var response = await Http.GetAsync("/api/productlist");
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
             products = JsonSerializer.Deserialize<Product[]>(json);
