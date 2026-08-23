@@ -14,7 +14,7 @@ alongside it if you want to know how it was reasoned about beforehand.
 
 ## The short version
 
-21 commits — one establishing `main`, 20 on the deploy branch — gathered into pull request
+20 commits — one establishing `main`, 19 on the deploy branch — gathered into pull request
 **#1**, open and unmerged. The build was clean after every commit. The JSON contract, frozen at
 Activity 3, held unchanged through the final state. No AI product is named anywhere in the
 repository. Deployment was attempted — the Render Web Service was created, a real dashboard

@@ -11,8 +11,8 @@ deployment-wiring scope that was ultimately deferred.
 
 ## 1. Commits
 
-21 commits: one scaffold/reset commit on `main`, and 20 on the deploy branch, gathered into
-**pull request #1** — which therefore shows 20 commits, the scaffold commit being the base it
+20 commits: one scaffold/reset commit on `main`, and 19 on the deploy branch, gathered into
+**pull request #1** — which therefore shows 19 commits, the scaffold commit being the base it
 was opened against.
 
 ### On `main`
@@ -91,10 +91,10 @@ reflection, confirmed against every point in
 | 3 | Build clean — zero errors, zero warnings — after every commit | **PASS** | Verified individually after all 20 commits. |
 | 4 | Five gates hit, each stopping and summarizing; deployment gate held for the real Render URL | **PASS** | Gates 1-4 after commits 4, 8, 9, 12. Deployment gate after commit 15 — genuinely waited; no commit 16 was written before the principal supplied `https://fullstack-c7-inventoryhub.onrender.com`. |
 | 5 | One commit direct to `main`; everything else on `deploy/v1-fullstack-build`, inside an open, unmerged PR | **PASS** | `48fef0e` alone on `main`. PR #1: `state: OPEN`, `mergeable: MERGEABLE`, `isDraft: false`. |
-| 6 | Only `jdsaire` as author and committer; zero AI/vendor attribution | **PASS** | All 21 commits: author and committer both `jdsaire`. Grep across all commit messages for AI/vendor/`on-behalf-of` terms: zero hits. |
+| 6 | Only `jdsaire` as author and committer; zero AI/vendor attribution | **PASS** | All 20 commits: author and committer both `jdsaire`. Grep across all commit messages for AI/vendor/`on-behalf-of` terms: zero hits. |
 | 7 | JSON contract identical from Activity 3 through the final state | **PASS** | `curl` output at commit `d3defc5` and at the final running state: byte-identical field names and nesting. |
 | 8 | CORS, in-memory store, and placeholder URL each labeled inline as what they are | **PASS** | Comments in [Program.cs](../../src/ServerApp/Program.cs); README callouts in root and `src/ServerApp/README.md`. |
-| 9 | Every folder/subfolder has a README; all internal markdown links resolve, N/N | **PASS** | See §7 for the current count. Folders without their own README: none — every folder created in this run has one. |
+| 9 | Every folder/subfolder has a README; all internal markdown links resolve, N/N | **PASS** | See §8 for the count (83/83). Folders without their own README: none — every folder created in this run has one. |
 | 10 | GitHub Pages workflow present; Render Dockerfile at `src/ServerApp/Dockerfile`; neither dashboard touched directly by this build | **DEVIATED (approved)** | Dockerfile present and correct. GitHub Pages workflow was **not added** — skipped by the principal's explicit scope-cut decision (§4.3), since a front-end pointed at a non-functional backend has no value deployed. Neither the Render nor Azure dashboard was ever touched directly in this run — every dashboard action was the principal's own, reported back. |
 | 11 | `docs/deployment.md` accurately records the Azure evaluation and Render decision | **PASS** | Records the Static Web App mistake, the App Service configuration, Basic Authentication never enabled, the Web App never created, the Render choice, **and** the actual Render deployment outcome (added in commit 18). |
 | 12 | Zero subagents; no PAT requested, printed, or referenced | **PASS** | Single agent throughout, per the mandate's explicit prohibition. All GitHub access via `gh` CLI with the Keychain-persisted credential; no token value was ever requested, echoed, or written. |
@@ -201,7 +201,7 @@ which is consistent with the mandate's own task assignment, not an oversight.
 
 | Item | Note |
 |---|---|
-| **The pull request is unmerged** | PR #1 is open with all 20 branch commits. Merging is the principal's to do manually. Nothing in this run merged, or attempted to merge, it. |
+| **The pull request is unmerged** | PR #1 is open with all 19 branch commits. Merging is the principal's to do manually. Nothing in this run merged, or attempted to merge, it. |
 | **Deployment is incomplete** | The Render Web Service exists but its build fails; the root cause of the continued failure past the Dockerfile Path fix was not found in this session. Deferred by principal decision to a future session, outside this course's scope. `ApiBaseUrl` currently ships as the literal placeholder string. |
 | **No GitHub Pages workflow** | Skipped as part of the same scope-cut — see §4.3. |
 | **Data does not survive a restart** | By design — in-memory storage, per the scope ceiling. Stated plainly in the root README and `src/ServerApp/README.md`. Not a defect. |
@@ -217,7 +217,7 @@ Run after the last documentation commit, before this archive commit.
 |---|---|
 | `dotnet build` | **PASS** — 0 errors, 0 warnings |
 | Internal markdown links resolve | **PASS** — see §8 |
-| Author and committer on every commit | **PASS** — `jdsaire` only, both roles, all 21 commits |
+| Author and committer on every commit | **PASS** — `jdsaire` only, both roles, all 20 commits |
 | AI/vendor names in working tree, commits, branch name, PR | **PASS** — zero hits outside the four permitted "AI coding assistant" lines |
 | CORS / in-memory data / placeholder URL labeled inline | **PASS** |
 | JSON contract identical from Activity 3 to final state | **PASS** — direct `curl` diff |
@@ -229,7 +229,7 @@ Counted across every markdown file in the repository, excluding `.git`, `bin`, a
 External `http(s)` links and same-page anchors are excluded; every relative path is resolved
 against the filesystem, including the files this archive commit itself adds.
 
-**All internal markdown links resolve: 84/84**, across 20 markdown files — verified with a
+**All internal markdown links resolve: 83/83**, across 20 markdown files — verified with a
 script that resolves every relative link against the actual filesystem, excluding external
 `http(s)` links and same-page anchors, run against the final state including this archive
 commit's own four files.
