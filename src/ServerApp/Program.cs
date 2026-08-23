@@ -7,6 +7,10 @@ builder.Services.AddCors();
 
 var app = builder.Build();
 
+// Integration point: CORS policy. An AI coding assistant diagnosed why the policy alone
+// produced a startup crash (ICorsService could not be resolved) and identified the missing
+// AddCors() registration above as the fix, distinct from the policy content itself.
+//
 // Course-literal, demo-permissive CORS policy: it accepts any origin, method, and header.
 // This is NOT a production security stance and protects against nothing — it exists so the
 // Blazor front-end (a different origin during local development) can reach this API at all.

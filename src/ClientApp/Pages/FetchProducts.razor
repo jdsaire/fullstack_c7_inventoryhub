@@ -34,6 +34,9 @@
         await LoadProductsAsync();
     }
 
+    // Integration point: the HttpClient call to ServerApp. An AI coding assistant generated the
+    // initial GetAsync/ReadAsStringAsync/Deserialize sequence and suggested extracting it into
+    // this dedicated method (rather than inlining it in OnInitializedAsync) for readability.
     private async Task LoadProductsAsync()
     {
         try
@@ -45,6 +48,10 @@
         }
         catch (JsonException ex)
         {
+            // Integration point: JSON error handling. An AI coding assistant proposed splitting
+            // the original single generic catch into typed catches (JsonException,
+            // HttpRequestException, TaskCanceledException) so each failure mode gets a
+            // message the user can actually act on, instead of one indistinct error string.
             // The response arrived but was not valid JSON for Product[] — for example if the
             // back-end response structure changed unexpectedly. Caught separately so a
             // malformed payload shows a clear message instead of an unhandled exception.
@@ -72,6 +79,10 @@
         public Category? Category { get; set; }
     }
 
+    // Integration point: nested-category deserialization. An AI coding assistant identified
+    // that System.Text.Json maps nested JSON objects to nested C# classes automatically —
+    // no custom converter is needed as long as Category's shape mirrors the response's
+    // nested object, which is what made adding this field a pure model change.
     public class Category
     {
         public int Id { get; set; }
