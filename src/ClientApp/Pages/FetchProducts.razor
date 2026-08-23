@@ -1,4 +1,6 @@
 @page "/fetchproducts"
+@using System.Text.Json
+@inject HttpClient Http
 <h3>Product List</h3>
 <ul>
    @if (products != null)
@@ -17,7 +19,10 @@
     private Product[]? products = null;
     protected override async Task OnInitializedAsync()
     {
-        // API call logic will go here
+        var response = await Http.GetAsync("/api/products");
+        response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
+        products = JsonSerializer.Deserialize<Product[]>(json);
     }
     public class Product
     {
