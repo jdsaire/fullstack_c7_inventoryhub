@@ -20,6 +20,12 @@
     }
 </ul>
 @code {
+    // ServerApp serializes anonymous response objects with camelCase keys (id, name, price,
+    // stock) by ASP.NET Core's default; Product's properties are PascalCase. Without
+    // PropertyNameCaseInsensitive, Deserialize silently leaves every property at its default
+    // (empty name, 0 price) instead of throwing, so this is required for real values to bind.
+    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
+
     private Product[]? products = null;
     private string? errorMessage = null;
 
@@ -35,7 +41,7 @@
             var response = await Http.GetAsync("/api/productlist");
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
-            products = JsonSerializer.Deserialize<Product[]>(json) ?? Array.Empty<Product>();
+            products = JsonSerializer.Deserialize<Product[]>(json, JsonOptions) ?? Array.Empty<Product>();
         }
         catch (JsonException ex)
         {
