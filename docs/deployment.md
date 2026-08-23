@@ -1,9 +1,11 @@
 # Deployment
 
-InventoryHub's front-end (ClientApp) is hosted on GitHub Pages, and its back-end (ServerApp)
-is hosted on Render as a Docker-based Free Web Service. Getting to that pairing took a
-detour through Azure first, recorded here because it's genuinely how the decision was made,
-not a hypothetical.
+InventoryHub does not have a live deployment as of this repository's current state. The plan
+was GitHub Pages for the front-end (ClientApp) and Render, as a Docker-based Free Web Service,
+for the back-end (ServerApp). Reaching that plan took a detour through Azure first, and then a
+real, unresolved failure on Render itself — both recorded here because they're genuinely what
+happened, not a hypothetical. Deployment was deferred to a future session, outside this
+capstone's scope; see "Current status" at the end of this file for exactly where it stands.
 
 ## How the hosting choice was reached
 
@@ -60,14 +62,45 @@ part of this capstone's own hosting solution.
 The Free Web Service instance sleeps after roughly 15 minutes of inactivity. The first request
 after a period of sleep takes about 30-60 seconds to wake the instance and respond — this is
 expected behavior for the free tier, not a bug in ServerApp. It only affects the first request
-after idle time; every request after that is normal speed until the instance sleeps again.
+after idle time; every request after that is normal speed until the instance sleeps again. (This
+is documented ahead of actually confirming it live — see below.)
 
 ## The placeholder URL mechanism
 
-Until this project's Render Web Service is created and its live URL is known, ClientApp's API
-base URL configuration ships with the literal string
-`https://REPLACE-WITH-RENDER-URL.onrender.com` — a value that visibly fails if it's ever left
-in place, rather than a plausible-looking fake URL that could be mistaken for a working one.
-It's labeled inline as a placeholder awaiting the real value. Once the Render Web Service
-exists, its actual URL replaces that placeholder everywhere it appears, in its own dedicated
-commit.
+Until this project's Render Web Service has a working, confirmed-live URL, ClientApp's API base
+URL configuration ships with the literal string `https://REPLACE-WITH-RENDER-URL.onrender.com`
+— a value that visibly fails if it's ever left in place, rather than a plausible-looking fake
+URL that could be mistaken for a working one. It's labeled inline as a placeholder awaiting the
+real value.
+
+## What actually happened when Render deployment was attempted
+
+The Render Web Service itself was created successfully, and its assigned URL
+(`https://fullstack-c7-inventoryhub.onrender.com`) was wired into `appsettings.json` in place of
+the placeholder. The build then failed with `failed to solve: failed to read dockerfile: open
+Dockerfile: no such file or directory`.
+
+The root cause, confirmed against Render's own documentation
+([render.com/docs/docker](https://render.com/docs/docker),
+[render.com/docs/monorepo-support](https://render.com/docs/monorepo-support)): Render's
+**Dockerfile Path** field is resolved relative to the repository root, regardless of the
+service's separately configured **Root Directory** setting — the two fields don't share a base
+path, which isn't obvious from the dashboard's field labels alone. `Root Directory` (set to
+`src/ServerApp`) correctly scopes the Docker build context, so this repository's Dockerfile
+itself, with `COPY` paths relative to `src/ServerApp`, was correct as written — but the
+Dockerfile Path field needed the repo-root-relative value `src/ServerApp/Dockerfile`, not the
+Root-Directory-relative value `Dockerfile` that had been entered initially.
+
+That correction was applied, but the deploy still failed after repeated retries. With the cause
+of the continued failure unresolved, and given the scope of a graded course capstone, the
+decision was made to defer completing the Render deployment to a future session, worked outside
+this course's scope. `appsettings.json`'s `ApiBaseUrl` was reverted to the literal placeholder
+string, since a real-looking URL that doesn't actually respond would misrepresent the project's
+working state more than an explicit placeholder does.
+
+## Current status
+
+Not deployed. The Dockerfile, this document, and the config-wiring mechanism are retained as a
+documented attempt — in the same spirit as the Azure exploration above — not discarded as
+wasted effort. `ApiBaseUrl` is back at the placeholder string. Anyone wanting to run
+InventoryHub today runs it locally; see [how-to-run.md](how-to-run.md).
