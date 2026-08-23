@@ -3,7 +3,11 @@
 @inject HttpClient Http
 <h3>Product List</h3>
 <ul>
-   @if (products != null)
+   @if (errorMessage != null)
+    {
+        <li>@errorMessage</li>
+    }
+    else if (products != null)
     {
         foreach (var product in products)
         {
@@ -17,13 +21,32 @@
 </ul>
 @code {
     private Product[]? products = null;
+    private string? errorMessage = null;
+
     protected override async Task OnInitializedAsync()
     {
-        var response = await Http.GetAsync("/api/products");
-        response.EnsureSuccessStatusCode();
-        var json = await response.Content.ReadAsStringAsync();
-        products = JsonSerializer.Deserialize<Product[]>(json);
+        await LoadProductsAsync();
     }
+
+    private async Task LoadProductsAsync()
+    {
+        try
+        {
+            var response = await Http.GetAsync("/api/products");
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            products = JsonSerializer.Deserialize<Product[]>(json);
+        }
+        catch (HttpRequestException ex)
+        {
+            errorMessage = $"Unable to reach the product API: {ex.Message}";
+        }
+        catch (TaskCanceledException)
+        {
+            errorMessage = "The product API request timed out.";
+        }
+    }
+
     public class Product
     {
         public int Id { get; set; }
