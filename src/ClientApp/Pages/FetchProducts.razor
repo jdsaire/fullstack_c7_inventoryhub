@@ -29,6 +29,8 @@
     private Product[]? products = null;
     private string? errorMessage = null;
 
+    // Fetches once per component instance: OnInitializedAsync runs only on initial creation,
+    // not on subsequent re-renders, so this does not need extra guarding against duplicate calls.
     protected override async Task OnInitializedAsync()
     {
         await LoadProductsAsync();
@@ -55,19 +57,23 @@
             // The response arrived but was not valid JSON for Product[] — for example if the
             // back-end response structure changed unexpectedly. Caught separately so a
             // malformed payload shows a clear message instead of an unhandled exception.
-            Console.WriteLine($"Error: {ex.Message}");
-            errorMessage = "The product API returned malformed JSON.";
+            LogAndSetError(ex, "The product API returned malformed JSON.");
         }
         catch (HttpRequestException ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
-            errorMessage = $"Unable to reach the product API: {ex.Message}";
+            LogAndSetError(ex, $"Unable to reach the product API: {ex.Message}");
         }
         catch (TaskCanceledException ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
-            errorMessage = "The product API request timed out.";
+            LogAndSetError(ex, "The product API request timed out.");
         }
+    }
+
+    // Shared by all three catches above; keeps the console-log line out of each branch.
+    private void LogAndSetError(Exception ex, string userMessage)
+    {
+        Console.WriteLine($"Error: {ex.Message}");
+        errorMessage = userMessage;
     }
 
     public class Product
