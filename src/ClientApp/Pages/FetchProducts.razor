@@ -1,0 +1,97 @@
+@page "/fetchproducts"
+@using System.Text.Json
+@inject HttpClient Http
+<h3>Product List</h3>
+<ul>
+   @if (errorMessage != null)
+    {
+        <li>@errorMessage</li>
+    }
+    else if (products != null)
+    {
+        foreach (var product in products)
+        {
+            <li>@product.Name - $@product.Price (@product.Category?.Name)</li>
+        }
+    }
+    else
+    {
+        <li>Loading...</li>
+    }
+</ul>
+@code {
+    // ServerApp serializes anonymous response objects with camelCase keys (id, name, price,
+    // stock) by ASP.NET Core's default; Product's properties are PascalCase. Without
+    // PropertyNameCaseInsensitive, Deserialize silently leaves every property at its default
+    // (empty name, 0 price) instead of throwing, so this is required for real values to bind.
+    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
+
+    private Product[]? products = null;
+    private string? errorMessage = null;
+
+    // Fetches once per component instance: OnInitializedAsync runs only on initial creation,
+    // not on subsequent re-renders, so this does not need extra guarding against duplicate calls.
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadProductsAsync();
+    }
+
+    // Integration point: the HttpClient call to ServerApp. An AI coding assistant generated the
+    // initial GetAsync/ReadAsStringAsync/Deserialize sequence and suggested extracting it into
+    // this dedicated method (rather than inlining it in OnInitializedAsync) for readability.
+    private async Task LoadProductsAsync()
+    {
+        try
+        {
+            var response = await Http.GetAsync("/api/productlist");
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            products = JsonSerializer.Deserialize<Product[]>(json, JsonOptions) ?? Array.Empty<Product>();
+        }
+        catch (JsonException ex)
+        {
+            // Integration point: JSON error handling. An AI coding assistant proposed splitting
+            // the original single generic catch into typed catches (JsonException,
+            // HttpRequestException, TaskCanceledException) so each failure mode gets a
+            // message the user can actually act on, instead of one indistinct error string.
+            // The response arrived but was not valid JSON for Product[] — for example if the
+            // back-end response structure changed unexpectedly. Caught separately so a
+            // malformed payload shows a clear message instead of an unhandled exception.
+            LogAndSetError(ex, "The product API returned malformed JSON.");
+        }
+        catch (HttpRequestException ex)
+        {
+            LogAndSetError(ex, $"Unable to reach the product API: {ex.Message}");
+        }
+        catch (TaskCanceledException ex)
+        {
+            LogAndSetError(ex, "The product API request timed out.");
+        }
+    }
+
+    // Shared by all three catches above; keeps the console-log line out of each branch.
+    private void LogAndSetError(Exception ex, string userMessage)
+    {
+        Console.WriteLine($"Error: {ex.Message}");
+        errorMessage = userMessage;
+    }
+
+    public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public double Price { get; set; }
+        public int Stock { get; set; }
+        public Category? Category { get; set; }
+    }
+
+    // Integration point: nested-category deserialization. An AI coding assistant identified
+    // that System.Text.Json maps nested JSON objects to nested C# classes automatically —
+    // no custom converter is needed as long as Category's shape mirrors the response's
+    // nested object, which is what made adding this field a pure model change.
+    public class Category
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+    }
+}
