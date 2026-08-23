@@ -35,14 +35,24 @@
             var response = await Http.GetAsync("/api/productlist");
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
-            products = JsonSerializer.Deserialize<Product[]>(json);
+            products = JsonSerializer.Deserialize<Product[]>(json) ?? Array.Empty<Product>();
+        }
+        catch (JsonException ex)
+        {
+            // The response arrived but was not valid JSON for Product[] — for example if the
+            // back-end response structure changed unexpectedly. Caught separately so a
+            // malformed payload shows a clear message instead of an unhandled exception.
+            Console.WriteLine($"Error: {ex.Message}");
+            errorMessage = "The product API returned malformed JSON.";
         }
         catch (HttpRequestException ex)
         {
+            Console.WriteLine($"Error: {ex.Message}");
             errorMessage = $"Unable to reach the product API: {ex.Message}";
         }
-        catch (TaskCanceledException)
+        catch (TaskCanceledException ex)
         {
+            Console.WriteLine($"Error: {ex.Message}");
             errorMessage = "The product API request timed out.";
         }
     }
