@@ -26,7 +26,6 @@ The demonstration features:
 
 - [docs/](docs/) — setup requirements, grading-criteria mapping, and activity completion reports
 - [docs/reports/](docs/reports/) — activity-by-activity completion reports
-- [learning-mode/](learning-mode/) — a walkthrough of how the project was actually built, stage by stage
 - [REFLECTION.md](REFLECTION.md) — the reflective summary on using AI assistance across this build
 
 ## Out of scope
