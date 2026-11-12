@@ -46,12 +46,12 @@
         <section class="metrics-row" aria-label="Test Suite Statistics">
             <div class="metric-card">
                 <div class="metric-label">Total Test Fixtures</div>
-                <div class="metric-value">22 <span style="font-size: 14px; font-weight: 500; color: var(--text-muted);">Methods</span></div>
-                <div class="metric-sub">3 Test Suites</div>
+                <div class="metric-value">32 <span style="font-size: 14px; font-weight: 500; color: var(--text-muted);">Methods</span></div>
+                <div class="metric-sub">4 Test Suites</div>
             </div>
             <div class="metric-card">
                 <div class="metric-label">Passed Assertions</div>
-                <div class="metric-value" style="color: var(--text-muted);" id="statPassed">0 / 22</div>
+                <div class="metric-value" style="color: var(--text-muted);" id="statPassed">0 / 32</div>
                 <div class="metric-sub">Click Run to Verify</div>
             </div>
             <div class="metric-card">
@@ -70,7 +70,7 @@
         <section class="controls-bar" aria-label="Test Runner Controls">
             <div>
                 <strong style="color: var(--text-primary); font-size: 15px;">Automated Verification Engine</strong>
-                <span style="color: var(--text-muted); font-size: 13px; margin-left: 8px;">Simulate live execution of all 22 test fixtures</span>
+                <span style="color: var(--text-muted); font-size: 13px; margin-left: 8px;">Simulate live execution of all 32 test fixtures</span>
             </div>
             <button id="runTestsBtn" class="btn btn-primary" type="button">
                 <span>▶ Run Verification Suite</span>
@@ -210,6 +210,61 @@
             </div>
         </section>
 
+        <!-- Suite 4: In-Memory Caching, Structured Logging & Diagnostics -->
+        <section class="test-suite-card" aria-labelledby="suite4Heading">
+            <div class="test-header">
+                <div>
+                    <span class="badge-m">[M]</span>
+                    <h2 id="suite4Heading" style="font-size: 16px; font-weight: 700; color: #ffffff; display: inline-block; margin-left: 6px;">
+                        Activity 4 · Caching, Structured Logging &amp; Diagnostics (Tests/TestPerformanceAndCaching.cs &amp; TestLoggingAndDiagnostics.cs)
+                    </h2>
+                </div>
+                <span class="pill-cat" id="suite4Badge">Ready (0/10)</span>
+            </div>
+            <div class="test-list">
+                <div class="test-item" id="test-item-22">
+                    <span class="test-name">TestMemoryCache_RegistrationResolvesSuccessfully</span>
+                    <span class="test-status-pill status-ready" id="status-22">○ READY</span>
+                </div>
+                <div class="test-item" id="test-item-23">
+                    <span class="test-name">TestProductListCache_FirstRequestCachesData</span>
+                    <span class="test-status-pill status-ready" id="status-23">○ READY</span>
+                </div>
+                <div class="test-item" id="test-item-24">
+                    <span class="test-name">TestProductListCache_SubsequentRequestRetrievesCachedInstance</span>
+                    <span class="test-status-pill status-ready" id="status-24">○ READY</span>
+                </div>
+                <div class="test-item" id="test-item-25">
+                    <span class="test-name">TestProductListCache_SlidingExpirationConfigured</span>
+                    <span class="test-status-pill status-ready" id="status-25">○ READY</span>
+                </div>
+                <div class="test-item" id="test-item-26">
+                    <span class="test-name">TestProductListCache_NullSafety</span>
+                    <span class="test-status-pill status-ready" id="status-26">○ READY</span>
+                </div>
+                <div class="test-item" id="test-item-27">
+                    <span class="test-name">TestDiagnosticsMiddleware_GeneratesTraceIdHeader</span>
+                    <span class="test-status-pill status-ready" id="status-27">○ READY</span>
+                </div>
+                <div class="test-item" id="test-item-28">
+                    <span class="test-name">TestDiagnosticsMiddleware_PreservesIncomingTraceId</span>
+                    <span class="test-status-pill status-ready" id="status-28">○ READY</span>
+                </div>
+                <div class="test-item" id="test-item-29">
+                    <span class="test-name">TestDiagnosticsMiddleware_AppendsResponseTimeHeader</span>
+                    <span class="test-status-pill status-ready" id="status-29">○ READY</span>
+                </div>
+                <div class="test-item" id="test-item-30">
+                    <span class="test-name">TestDiagnosticsHeader_CacheStatusReported</span>
+                    <span class="test-status-pill status-ready" id="status-30">○ READY</span>
+                </div>
+                <div class="test-item" id="test-item-31">
+                    <span class="test-name">TestStructuredLog_FormatAndEventProperties</span>
+                    <span class="test-status-pill status-ready" id="status-31">○ READY</span>
+                </div>
+            </div>
+        </section>
+
         <!-- Live Execution Log Terminal -->
         <section class="test-suite-card" aria-labelledby="terminalHeading">
             <div class="test-header">
@@ -226,7 +281,7 @@
         <!-- Persistent Simulation Badge (Relocated to bottom) -->
         <aside class="sim-alert" aria-label="Simulation Notice" style="margin-top: 32px; margin-bottom: 0;">
             <span class="badge-m">[M]</span>
-            <span><strong>Measured Verification Suite:</strong> All 22 test methods reflect the automated NUnit test suites authored in <code>Tests/Tests.csproj</code> validating integration, route alignment, CORS policy, and nested category JSON schemas.</span>
+            <span><strong>Measured Verification Suite:</strong> All 32 test methods reflect the automated NUnit test suites authored in <code>Tests/Tests.csproj</code> validating integration, route alignment, CORS policy, nested category JSON schemas, in-memory caching, and diagnostics telemetry.</span>
         </aside>
 
     </main>
@@ -245,6 +300,7 @@
         const suite1Badge = document.getElementById('suite1Badge');
         const suite2Badge = document.getElementById('suite2Badge');
         const suite3Badge = document.getElementById('suite3Badge');
+        const suite4Badge = document.getElementById('suite4Badge');
 
         const testNames = [
             "InventoryHub.Tests.TestIntegration.TestProductModel_PropertiesAndInstantiation",
@@ -268,13 +324,23 @@
             "InventoryHub.Tests.TestJsonStructures.TestCategoryModel_DirectInstantiationAndProperties",
             "InventoryHub.Tests.TestJsonStructures.TestJsonSerialization_IncludesNestedCategoryStructure",
             "InventoryHub.Tests.TestJsonStructures.TestCaseInsensitiveNestedBinding",
-            "InventoryHub.Tests.TestJsonStructures.TestMalformedNestedCategory_ThrowsJsonException"
+            "InventoryHub.Tests.TestJsonStructures.TestMalformedNestedCategory_ThrowsJsonException",
+            "InventoryHub.Tests.TestPerformanceAndCaching.TestMemoryCache_RegistrationResolvesSuccessfully",
+            "InventoryHub.Tests.TestPerformanceAndCaching.TestProductListCache_FirstRequestCachesData",
+            "InventoryHub.Tests.TestPerformanceAndCaching.TestProductListCache_SubsequentRequestRetrievesCachedInstance",
+            "InventoryHub.Tests.TestPerformanceAndCaching.TestProductListCache_SlidingExpirationConfigured",
+            "InventoryHub.Tests.TestPerformanceAndCaching.TestProductListCache_NullSafety",
+            "InventoryHub.Tests.TestLoggingAndDiagnostics.TestDiagnosticsMiddleware_GeneratesTraceIdHeader",
+            "InventoryHub.Tests.TestLoggingAndDiagnostics.TestDiagnosticsMiddleware_PreservesIncomingTraceId",
+            "InventoryHub.Tests.TestLoggingAndDiagnostics.TestDiagnosticsMiddleware_AppendsResponseTimeHeader",
+            "InventoryHub.Tests.TestLoggingAndDiagnostics.TestDiagnosticsHeader_CacheStatusReported",
+            "InventoryHub.Tests.TestLoggingAndDiagnostics.TestStructuredLog_FormatAndEventProperties"
         ];
 
         let isRunning = false;
 
         function resetSuite() {
-            statPassed.textContent = "0 / 22";
+            statPassed.textContent = "0 / 32";
             statPassed.style.color = "var(--text-muted)";
             suite1Badge.textContent = "Ready (0/6)";
             suite1Badge.className = "pill-cat";
@@ -282,6 +348,8 @@
             suite2Badge.className = "pill-cat";
             suite3Badge.textContent = "Ready (0/8)";
             suite3Badge.className = "pill-cat";
+            suite4Badge.textContent = "Ready (0/10)";
+            suite4Badge.className = "pill-cat";
             timer.textContent = "Execution Time: 0.000s";
 
             for (let i = 0; i < testNames.length; i++) {
@@ -327,7 +395,7 @@
                         }
 
                         const passedCount = currentIdx + 1;
-                        statPassed.textContent = `${passedCount} / 22`;
+                        statPassed.textContent = `${passedCount} / 32`;
                         statPassed.style.color = "var(--color-primary)";
 
                         // Update suite badges
@@ -339,10 +407,14 @@
                             const count = (currentIdx - 6) + 1;
                             suite2Badge.textContent = count === 8 ? "8 of 8 Passed" : `${count} of 8 Passed`;
                             if (count === 8) suite2Badge.className = "pill-stock-ok";
-                        } else {
+                        } else if (currentIdx < 22) {
                             const count = (currentIdx - 14) + 1;
                             suite3Badge.textContent = count === 8 ? "8 of 8 Passed" : `${count} of 8 Passed`;
                             if (count === 8) suite3Badge.className = "pill-stock-ok";
+                        } else {
+                            const count = (currentIdx - 22) + 1;
+                            suite4Badge.textContent = count === 10 ? "10 of 10 Passed" : `${count} of 10 Passed`;
+                            if (count === 10) suite4Badge.className = "pill-stock-ok";
                         }
 
                         terminal.textContent += `[PASS] ${testNames[currentIdx]} (1ms)\n`;
@@ -350,13 +422,13 @@
 
                         index++;
                         runNext();
-                    }, 40);
+                    }, 35);
                 } else {
                     const elapsed = ((performance.now() - startTime) / 1000).toFixed(3);
-                    terminal.textContent += `\n================================================\nTest Run Successful.\nTotal tests: 22 | Passed: 22 | Failed: 0 | Skipped: 0\nDuration: ${elapsed}s\nAll test assertions verified clean.\n================================================\n`;
+                    terminal.textContent += `\n================================================\nTest Run Successful.\nTotal tests: 32 | Passed: 32 | Failed: 0 | Skipped: 0\nDuration: ${elapsed}s\nAll test assertions verified clean.\n================================================\n`;
                     terminal.scrollTop = terminal.scrollHeight;
                     timer.textContent = `Execution Time: ${elapsed}s`;
-                    statPassed.textContent = "22 / 22";
+                    statPassed.textContent = "32 / 32";
                     statPassed.style.color = "var(--color-success)";
                     runBtn.disabled = false;
                     runBtn.innerHTML = '<span>↻ Re-run Verification Suite</span>';
