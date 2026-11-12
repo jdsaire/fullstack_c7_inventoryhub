@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog · InventoryHub</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <a href="#mainContent" class="skip-link">Skip to main content</a>
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar" role="banner">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand" aria-label="InventoryHub Home">
+                <span class="brand-icon" aria-hidden="true">📦</span>
+                <span class="brand-title">InventoryHub</span>
+                <span class="brand-badge">Interactive Demo</span>
+            </a>
+            <nav class="nav-links" aria-label="Primary Navigation">
+                <a href="index.html" class="nav-link">Overview</a>
+                <a href="products.html" class="nav-link active" aria-current="page">Product Catalog</a>
+                <a href="tests.html" class="nav-link">Test Runner</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="https://github.com/jdsaire/fullstack_c7_inventoryhub" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">GitHub Repo</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent" role="main">
+
+        <!-- Persistent Simulation Badge -->
+        <aside class="sim-alert" aria-label="Simulation Notice">
+            <span class="badge-sim">[SIM]</span>
+            <span><strong>Simulated Inventory Snapshot:</strong> Product catalog data is loaded from the bundled snapshot (<code>data/products.json</code>), reproducing the exact JSON response contract of the <code>/api/productlist</code> endpoint.</span>
+        </aside>
+
+        <!-- Page Header -->
+        <header class="page-hero">
+            <div class="hero-tag">
+                <span aria-hidden="true">🛒</span> Activity 3 Rebuild · Nested Category Schema
+            </div>
+            <h1 class="hero-title">Interactive Product Catalog &amp; Category Filters</h1>
+            <p class="hero-subtitle">
+                Filter and inspect structured inventory records with nested category associations. Real-time filtering reflects the front-end Blazor WebAssembly binding behavior.
+            </p>
+        </header>
+
+        <!-- Metric Stat Cards -->
+        <section class="metrics-row" aria-label="Catalog Summary">
+            <div class="metric-card">
+                <div class="metric-label">Displaying Products</div>
+                <div class="metric-value" id="statDisplayed">6</div>
+                <div class="metric-sub" id="statCategory">All Categories</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Total Stock Quantity</div>
+                <div class="metric-value" id="statStock">292</div>
+                <div class="metric-sub">Units Available</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Total Catalog Value</div>
+                <div class="metric-value" id="statValue" style="color: var(--color-success);">$48,464.05</div>
+                <div class="metric-sub">Inventory Valuation</div>
+            </div>
+        </section>
+
+        <!-- Interactive Search & Filter Bar -->
+        <section class="controls-bar" aria-label="Catalog Filters">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search by product name..." aria-label="Search products by name">
+            <div class="filter-group" role="group" aria-label="Category Filters">
+                <button class="filter-btn active" data-category="all" type="button">All Categories</button>
+                <button class="filter-btn" data-category="Electronics" type="button">Electronics</button>
+                <button class="filter-btn" data-category="Accessories" type="button">Accessories</button>
+                <button class="filter-btn" data-category="Home Office" type="button">Home Office</button>
+            </div>
+        </section>
+
+        <!-- Responsive Data Table -->
+        <section class="table-wrapper" aria-label="Product Table">
+            <table class="data-table" id="productsTable">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Unit Price</th>
+                        <th scope="col">In Stock</th>
+                        <th scope="col">Stock Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Dynamic rendering via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- JSON Payload Inspector -->
+        <section class="test-suite-card" aria-labelledby="payloadHeading">
+            <div class="test-header">
+                <div>
+                    <span class="badge-sim">[SIM]</span>
+                    <h2 id="payloadHeading" style="font-size: 16px; font-weight: 700; color: #ffffff; display: inline-block; margin-left: 6px;">
+                        Standardized JSON Response Structure
+                    </h2>
+                </div>
+                <span style="font-size: 12px; color: var(--text-muted); font-family: var(--font-mono);">GET /api/productlist</span>
+            </div>
+            <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;">
+                The payload below demonstrates the Course 7 Activity 3 schema: standard top-level scalar fields (<code>id</code>, <code>name</code>, <code>price</code>, <code>stock</code>) combined with strongly-typed nested <code>category</code> objects:
+            </p>
+            <div class="terminal-box" id="payloadViewer">Loading JSON contract payload...</div>
+        </section>
+
+    </main>
+
+    <!-- Unified Footer -->
+    <footer class="footer" role="contentinfo">
+        <p>InventoryHub · Microsoft Full Stack Developer Specialization · Course 7 Capstone</p>
+        <p style="margin-top: 4px; color: var(--text-muted);">Authored by Juan Diego S. (<code>jdsaire</code>) · All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Seed catalog snapshot data (used directly or as fallback)
+        const seedProducts = [
+            {
+                id: 1,
+                name: "Laptop",
+                price: 1200.50,
+                stock: 25,
+                category: { id: 101, name: "Electronics" }
+            },
+            {
+                id: 2,
+                name: "Headphones",
+                price: 50.00,
+                stock: 100,
+                category: { id: 102, name: "Accessories" }
+            },
+            {
+                id: 3,
+                name: "Desk Lamp",
+                price: 29.99,
+                stock: 45,
+                category: { id: 103, name: "Home Office" }
+            },
+            {
+                id: 4,
+                name: "Wireless Mouse",
+                price: 24.50,
+                stock: 80,
+                category: { id: 102, name: "Accessories" }
+            },
+            {
+                id: 5,
+                name: "Ergonomic Keyboard",
+                price: 89.00,
+                stock: 30,
+                category: { id: 102, name: "Accessories" }
+            },
+            {
+                id: 6,
+                name: "UltraWide Monitor 34\"",
+                price: 499.00,
+                stock: 12,
+                category: { id: 101, name: "Electronics" }
+            }
+        ];
+
+        let allProducts = [...seedProducts];
+        let currentCategory = "all";
+        let currentSearch = "";
+
+        // Attempt fetch from data/products.json, fallback to inline seed if local file restrictions apply
+        async function loadData() {
+            try {
+                const response = await fetch('data/products.json');
+                if (response.ok) {
+                    allProducts = await response.json();
+                }
+            } catch (e) {
+                // Inline seed remains active
+            }
+            renderTable();
+            renderJsonViewer();
+        }
+
+        function renderTable() {
+            const filtered = allProducts.filter(p => {
+                const matchesCat = (currentCategory === "all") || (p.category && p.category.name === currentCategory);
+                const matchesSearch = p.name.toLowerCase().includes(currentSearch.toLowerCase());
+                return matchesCat && matchesSearch;
+            });
+
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            let totalStock = 0;
+            let totalVal = 0;
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 24px; color: var(--text-muted);">No products match the selected criteria.</td></tr>`;
+            } else {
+                filtered.forEach(p => {
+                    totalStock += p.stock;
+                    totalVal += (p.price * p.stock);
+
+                    const tr = document.createElement('tr');
+                    const isLowStock = p.stock < 20;
+                    const stockPill = isLowStock 
+                        ? `<span class="pill-stock-low">Low Stock (${p.stock})</span>`
+                        : `<span class="pill-stock-ok">In Stock (${p.stock})</span>`;
+
+                    tr.innerHTML = `
+                        <td style="font-family: var(--font-mono); font-weight: 600;">#${p.id}</td>
+                        <td style="font-weight: 600; color: var(--text-primary);">${p.name}</td>
+                        <td><span class="pill-cat">${p.category ? p.category.name : 'Uncategorized'}</span></td>
+                        <td style="font-family: var(--font-mono);">$${p.price.toFixed(2)}</td>
+                        <td style="font-family: var(--font-mono);">${p.stock}</td>
+                        <td>${stockPill}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            document.getElementById('statDisplayed').textContent = filtered.length;
+            document.getElementById('statCategory').textContent = currentCategory === "all" ? "All Categories" : currentCategory;
+            document.getElementById('statStock').textContent = totalStock;
+            document.getElementById('statValue').textContent = '$' + totalVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function renderJsonViewer() {
+            const viewer = document.getElementById('payloadViewer');
+            viewer.textContent = JSON.stringify(allProducts, null, 2);
+        }
+
+        // Event Listeners
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.dataset.category;
+                renderTable();
+            });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            currentSearch = e.target.value.trim();
+            renderTable();
+        });
+
+        // Initialize
+        loadData();
+    </script>
+</body>
+</html>
