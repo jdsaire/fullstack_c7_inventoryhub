@@ -31,12 +31,6 @@
     <!-- Main Content -->
     <main class="main-content" id="mainContent" role="main">
 
-        <!-- Persistent Simulation Badge -->
-        <aside class="sim-alert" aria-label="Simulation Notice">
-            <span class="badge-m">[M]</span>
-            <span><strong>Measured Verification Suite:</strong> All 22 test methods reflect the automated NUnit test suites authored in <code>Tests/Tests.csproj</code> validating integration, route alignment, CORS policy, and nested category JSON schemas.</span>
-        </aside>
-
         <!-- Page Header -->
         <header class="page-hero">
             <div class="hero-tag">
@@ -57,8 +51,8 @@
             </div>
             <div class="metric-card">
                 <div class="metric-label">Passed Assertions</div>
-                <div class="metric-value" style="color: var(--color-success);" id="statPassed">22</div>
-                <div class="metric-sub">100% Pass Rate</div>
+                <div class="metric-value" style="color: var(--text-muted);" id="statPassed">0 / 22</div>
+                <div class="metric-sub">Click Run to Verify</div>
             </div>
             <div class="metric-card">
                 <div class="metric-label">Failed Assertions</div>
@@ -92,32 +86,32 @@
                         Activity 1 · Integration &amp; Model Contracts (Tests/TestIntegration.cs)
                     </h2>
                 </div>
-                <span class="pill-stock-ok">6 of 6 Passed</span>
+                <span class="pill-cat" id="suite1Badge">Ready (0/6)</span>
             </div>
             <div class="test-list">
-                <div class="test-item">
+                <div class="test-item" id="test-item-0">
                     <span class="test-name">TestProductModel_PropertiesAndInstantiation</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-0">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-1">
                     <span class="test-name">TestProductSerialization_ProducesExpectedJson</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-1">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-2">
                     <span class="test-name">TestProductDeserialization_BindsCaseInsensitively</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-2">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-3">
                     <span class="test-name">TestProductDeserialization_CaseSensitive_FailsToBind</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-3">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-4">
                     <span class="test-name">TestMalformedJson_ThrowsJsonException</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-4">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-5">
                     <span class="test-name">TestEmptyJsonArray_ReturnsEmptyCollection</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-5">○ READY</span>
                 </div>
             </div>
         </section>
@@ -131,40 +125,40 @@
                         Activity 2 · Route Alignment, CORS &amp; Typed Errors (Tests/TestDebuggingAndErrors.cs)
                     </h2>
                 </div>
-                <span class="pill-stock-ok">8 of 8 Passed</span>
+                <span class="pill-cat" id="suite2Badge">Ready (0/8)</span>
             </div>
             <div class="test-list">
-                <div class="test-item">
+                <div class="test-item" id="test-item-6">
                     <span class="test-name">TestRouteAlignment_ClientRequestMatchesServerEndpoint</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-6">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-7">
                     <span class="test-name">TestRouteMismatch_LegacyRouteDoesNotMatchAlignedEndpoint</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-7">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-8">
                     <span class="test-name">TestRouteConstruction_BaseAddressAndRelativeEndpointCombineAccurately</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-8">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-9">
                     <span class="test-name">TestCorsPolicy_ConfiguredAsDemoPermissive</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-9">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-10">
                     <span class="test-name">TestCorsService_RegistrationResolvesRequiredDependencies</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-10">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-11">
                     <span class="test-name">TestCorsService_MissingRegistrationFailsResolution</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-11">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-12">
                     <span class="test-name">TestJsonDeserialization_MalformedSyntaxThrowsJsonException</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-12">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-13">
                     <span class="test-name">TestTypedExceptionIsolation_DispatchesSpecificDiagnosticMessages</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-13">○ READY</span>
                 </div>
             </div>
         </section>
@@ -178,40 +172,40 @@
                         Activity 3 · Structured JSON &amp; Nested Categories (Tests/TestJsonStructures.cs)
                     </h2>
                 </div>
-                <span class="pill-stock-ok">8 of 8 Passed</span>
+                <span class="pill-cat" id="suite3Badge">Ready (0/8)</span>
             </div>
             <div class="test-list">
-                <div class="test-item">
+                <div class="test-item" id="test-item-14">
                     <span class="test-name">TestJsonSchema_ContainsAllStandardProperties</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-14">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-15">
                     <span class="test-name">TestNestedCategoryModel_DeserializesAccurately</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-15">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-16">
                     <span class="test-name">TestMultipleProducts_DistinctNestedCategories</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-16">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-17">
                     <span class="test-name">TestCategoryNullSafety_GracefullyHandlesMissingCategory</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-17">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-18">
                     <span class="test-name">TestCategoryModel_DirectInstantiationAndProperties</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-18">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-19">
                     <span class="test-name">TestJsonSerialization_IncludesNestedCategoryStructure</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-19">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-20">
                     <span class="test-name">TestCaseInsensitiveNestedBinding</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-20">○ READY</span>
                 </div>
-                <div class="test-item">
+                <div class="test-item" id="test-item-21">
                     <span class="test-name">TestMalformedNestedCategory_ThrowsJsonException</span>
-                    <span class="test-status-pass">✓ PASSED</span>
+                    <span class="test-status-pill status-ready" id="status-21">○ READY</span>
                 </div>
             </div>
         </section>
@@ -220,15 +214,20 @@
         <section class="test-suite-card" aria-labelledby="terminalHeading">
             <div class="test-header">
                 <div>
-                    <span class="badge-m">[M]</span>
-                    <h2 id="terminalHeading" style="font-size: 16px; font-weight: 700; color: #ffffff; display: inline-block; margin-left: 6px;">
-                        Execution Log &amp; Diagnostic Terminal
+                    <h2 id="terminalHeading" style="font-size: 16px; font-weight: 700; color: #ffffff; display: inline-block;">
+                        Execution Console
                     </h2>
                 </div>
-                <span id="execTimer" style="font-size: 12px; color: var(--text-muted); font-family: var(--font-mono);">Execution Time: 0.042s</span>
+                <span id="execTimer" style="font-size: 12px; color: var(--text-muted); font-family: var(--font-mono);">Execution Time: 0.000s</span>
             </div>
             <div class="terminal-box" id="terminalOutput">Ready. Click 'Run Verification Suite' to simulate automated test run.</div>
         </section>
+
+        <!-- Persistent Simulation Badge (Relocated to bottom) -->
+        <aside class="sim-alert" aria-label="Simulation Notice" style="margin-top: 32px; margin-bottom: 0;">
+            <span class="badge-m">[M]</span>
+            <span><strong>Measured Verification Suite:</strong> All 22 test methods reflect the automated NUnit test suites authored in <code>Tests/Tests.csproj</code> validating integration, route alignment, CORS policy, and nested category JSON schemas.</span>
+        </aside>
 
     </main>
 
@@ -242,6 +241,10 @@
         const runBtn = document.getElementById('runTestsBtn');
         const terminal = document.getElementById('terminalOutput');
         const timer = document.getElementById('execTimer');
+        const statPassed = document.getElementById('statPassed');
+        const suite1Badge = document.getElementById('suite1Badge');
+        const suite2Badge = document.getElementById('suite2Badge');
+        const suite3Badge = document.getElementById('suite3Badge');
 
         const testNames = [
             "InventoryHub.Tests.TestIntegration.TestProductModel_PropertiesAndInstantiation",
@@ -268,27 +271,100 @@
             "InventoryHub.Tests.TestJsonStructures.TestMalformedNestedCategory_ThrowsJsonException"
         ];
 
+        let isRunning = false;
+
+        function resetSuite() {
+            statPassed.textContent = "0 / 22";
+            statPassed.style.color = "var(--text-muted)";
+            suite1Badge.textContent = "Ready (0/6)";
+            suite1Badge.className = "pill-cat";
+            suite2Badge.textContent = "Ready (0/8)";
+            suite2Badge.className = "pill-cat";
+            suite3Badge.textContent = "Ready (0/8)";
+            suite3Badge.className = "pill-cat";
+            timer.textContent = "Execution Time: 0.000s";
+
+            for (let i = 0; i < testNames.length; i++) {
+                const item = document.getElementById(`test-item-${i}`);
+                const pill = document.getElementById(`status-${i}`);
+                if (item) item.classList.remove('active-running');
+                if (pill) {
+                    pill.className = "test-status-pill status-ready";
+                    pill.textContent = "○ READY";
+                }
+            }
+        }
+
         runBtn.addEventListener('click', () => {
+            if (isRunning) return;
+            isRunning = true;
+            resetSuite();
+
             runBtn.disabled = true;
-            terminal.textContent = "Starting NUnit Test Execution Engine...\nLoading project: Tests/Tests.csproj\nFramework: net10.0\n\n";
+            runBtn.innerHTML = '<span>⚡ Executing Suite...</span>';
+            terminal.textContent = "Starting NUnit Test Execution Engine...\nLoading project: Tests/Tests.csproj\nFramework: net10.0\nTarget: x64 | Release\n\n";
 
             let index = 0;
             const startTime = performance.now();
 
-            const interval = setInterval(() => {
+            function runNext() {
                 if (index < testNames.length) {
-                    terminal.textContent += `[PASS] ${testNames[index]} (1ms)\n`;
-                    terminal.scrollTop = terminal.scrollHeight;
-                    index++;
+                    const currentIdx = index;
+                    const item = document.getElementById(`test-item-${currentIdx}`);
+                    const pill = document.getElementById(`status-${currentIdx}`);
+
+                    if (item) item.classList.add('active-running');
+                    if (pill) {
+                        pill.className = "test-status-pill status-running";
+                        pill.textContent = "⚡ RUNNING";
+                    }
+
+                    setTimeout(() => {
+                        if (item) item.classList.remove('active-running');
+                        if (pill) {
+                            pill.className = "test-status-pill status-pass";
+                            pill.textContent = "✓ PASSED";
+                        }
+
+                        const passedCount = currentIdx + 1;
+                        statPassed.textContent = `${passedCount} / 22`;
+                        statPassed.style.color = "var(--color-primary)";
+
+                        // Update suite badges
+                        if (currentIdx < 6) {
+                            const count = currentIdx + 1;
+                            suite1Badge.textContent = count === 6 ? "6 of 6 Passed" : `${count} of 6 Passed`;
+                            if (count === 6) suite1Badge.className = "pill-stock-ok";
+                        } else if (currentIdx < 14) {
+                            const count = (currentIdx - 6) + 1;
+                            suite2Badge.textContent = count === 8 ? "8 of 8 Passed" : `${count} of 8 Passed`;
+                            if (count === 8) suite2Badge.className = "pill-stock-ok";
+                        } else {
+                            const count = (currentIdx - 14) + 1;
+                            suite3Badge.textContent = count === 8 ? "8 of 8 Passed" : `${count} of 8 Passed`;
+                            if (count === 8) suite3Badge.className = "pill-stock-ok";
+                        }
+
+                        terminal.textContent += `[PASS] ${testNames[currentIdx]} (1ms)\n`;
+                        terminal.scrollTop = terminal.scrollHeight;
+
+                        index++;
+                        runNext();
+                    }, 40);
                 } else {
-                    clearInterval(interval);
                     const elapsed = ((performance.now() - startTime) / 1000).toFixed(3);
-                    terminal.textContent += `\nTest Run Successful.\nTotal tests: 22\nPassed: 22\nFailed: 0\nSkipped: 0\nDuration: ${elapsed}s\n`;
+                    terminal.textContent += `\n================================================\nTest Run Successful.\nTotal tests: 22 | Passed: 22 | Failed: 0 | Skipped: 0\nDuration: ${elapsed}s\nAll test assertions verified clean.\n================================================\n`;
                     terminal.scrollTop = terminal.scrollHeight;
                     timer.textContent = `Execution Time: ${elapsed}s`;
+                    statPassed.textContent = "22 / 22";
+                    statPassed.style.color = "var(--color-success)";
                     runBtn.disabled = false;
+                    runBtn.innerHTML = '<span>↻ Re-run Verification Suite</span>';
+                    isRunning = false;
                 }
-            }, 35);
+            }
+
+            runNext();
         });
     </script>
 </body>

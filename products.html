@@ -31,11 +31,7 @@
     <!-- Main Content -->
     <main class="main-content" id="mainContent" role="main">
 
-        <!-- Persistent Simulation Badge -->
-        <aside class="sim-alert" aria-label="Simulation Notice">
-            <span class="badge-sim">[SIM]</span>
-            <span><strong>Simulated Inventory Snapshot:</strong> Product catalog data is loaded from the bundled snapshot (<code>data/products.json</code>), reproducing the exact JSON response contract of the <code>/api/productlist</code> endpoint.</span>
-        </aside>
+
 
         <!-- Page Header -->
         <header class="page-hero">
@@ -97,22 +93,11 @@
             </table>
         </section>
 
-        <!-- JSON Payload Inspector -->
-        <section class="test-suite-card" aria-labelledby="payloadHeading">
-            <div class="test-header">
-                <div>
-                    <span class="badge-sim">[SIM]</span>
-                    <h2 id="payloadHeading" style="font-size: 16px; font-weight: 700; color: #ffffff; display: inline-block; margin-left: 6px;">
-                        Standardized JSON Response Structure
-                    </h2>
-                </div>
-                <span style="font-size: 12px; color: var(--text-muted); font-family: var(--font-mono);">GET /api/productlist</span>
-            </div>
-            <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;">
-                The payload below demonstrates the Course 7 Activity 3 schema: standard top-level scalar fields (<code>id</code>, <code>name</code>, <code>price</code>, <code>stock</code>) combined with strongly-typed nested <code>category</code> objects:
-            </p>
-            <div class="terminal-box" id="payloadViewer">Loading JSON contract payload...</div>
-        </section>
+        <!-- Persistent Simulation Badge (Relocated to bottom) -->
+        <aside class="sim-alert" aria-label="Simulation Notice" style="margin-top: 32px; margin-bottom: 0;">
+            <span class="badge-sim">[SIM]</span>
+            <span><strong>Simulated Inventory Snapshot:</strong> Product catalog data is loaded from the bundled snapshot (<code>data/products.json</code>), reproducing the exact JSON response contract of the <code>/api/productlist</code> endpoint.</span>
+        </aside>
 
     </main>
 
@@ -184,7 +169,6 @@
                 // Inline seed remains active
             }
             renderTable();
-            renderJsonViewer();
         }
 
         function renderTable() {
@@ -231,10 +215,7 @@
             document.getElementById('statValue').textContent = '$' + totalVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
 
-        function renderJsonViewer() {
-            const viewer = document.getElementById('payloadViewer');
-            viewer.textContent = JSON.stringify(allProducts, null, 2);
-        }
+
 
         // Event Listeners
         document.querySelectorAll('.filter-btn').forEach(btn => {
