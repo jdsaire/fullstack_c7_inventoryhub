@@ -6,12 +6,15 @@ app (`ClientApp`) that displays product data — name, price, stock, and categor
 project, built as four graded Activities: generating the front-end/back-end integration,
 debugging the issues that surfaced, structuring the JSON response, and optimizing performance.
 
-## How to see it
+## Live Interactive Demonstration
 
-There's no live deployment yet — see [docs/deployment.md](docs/deployment.md) for exactly why
-(an Azure evaluation that didn't fit the project's needs, then a Render attempt that hit an
-unresolved dashboard-configuration issue and was deferred). Run it locally instead:
-[docs/how-to-run.md](docs/how-to-run.md).
+Explore the live, interactive web application deployed on **GitHub Pages**:
+🔗 **[https://jdsaire.github.io/fullstack_c7_inventoryhub/](https://jdsaire.github.io/fullstack_c7_inventoryhub/)**
+
+The demonstration features:
+- **[Interactive Product Catalog](https://jdsaire.github.io/fullstack_c7_inventoryhub/products.html)**: Real-time category filtering (Electronics, Accessories, Home Office), dynamic search, and stock status indicators powered by a bundled JSON snapshot badged `[SIM]`.
+- **[Automated Test Runner](https://jdsaire.github.io/fullstack_c7_inventoryhub/tests.html)**: Interactive in-browser verification suite executing test assertions across all 22 test fixtures.
+- **Accessible Dark Theme**: WCAG 2.1 AAA accessible visual design system modeled after Course 8 SafeVault standards.
 
 ## Tech stack
 
@@ -21,12 +24,10 @@ unresolved dashboard-configuration issue and was deferred). Run it locally inste
 
 ## Documentation
 
-- [docs/](docs/) — how to run it, setup requirements, the grading-criteria mapping, and the
-  deployment history
-- [learning-mode/](learning-mode/) — a walkthrough of how the project was actually built, stage
-  by stage
-- [REFLECTION.md](REFLECTION.md) — the required reflective summary on using an AI coding
-  assistant across this build
+- [docs/](docs/) — setup requirements, grading-criteria mapping, and activity completion reports
+- [docs/reports/](docs/reports/) — activity-by-activity completion reports
+- [learning-mode/](learning-mode/) — a walkthrough of how the project was actually built, stage by stage
+- [REFLECTION.md](REFLECTION.md) — the reflective summary on using AI assistance across this build
 
 ## Out of scope
 
@@ -36,7 +37,6 @@ survive a restart), no authentication or authorization, and a CORS policy
 (`AllowAnyOrigin`/`AllowAnyMethod`/`AllowAnyHeader`) that is course-literal and demo-permissive
 — it is not a production security stance, and nothing in this repository claims otherwise.
 
-## Attribution
+## AI Assistance Disclosure
 
-Built with the assistance of an AI coding assistant across all four Activities — see
-[REFLECTION.md](REFLECTION.md) for specifics on where and how.
+Built with the assistance of Google Antigravity for the current rebuild, and an AI coding assistant for initial scaffolding — see [REFLECTION.md](REFLECTION.md) for specifics on where and how.
