@@ -7,7 +7,7 @@ This directory contains activity-by-activity completion reports documenting the 
 | Report | Activity | Focus | Status |
 |---|---|---|---|
 | [ACTIVITY-1-COMPLETION-REPORT.md](ACTIVITY-1-COMPLETION-REPORT.md) | Activity 1 | Front-End & Back-End Integration, Data Models & Integration Test Suite | Completed |
-| ACTIVITY-2-COMPLETION-REPORT.md | Activity 2 | Route Alignment, CORS Policy & JSON Error Handling Fixtures | Scheduled |
+| [ACTIVITY-2-COMPLETION-REPORT.md](ACTIVITY-2-COMPLETION-REPORT.md) | Activity 2 | Route Alignment, CORS Policy & JSON Error Handling Fixtures | Completed |
 | ACTIVITY-3-COMPLETION-REPORT.md | Activity 3 | Standardized JSON Structures & Nested Category Contract Tests | Scheduled |
 | ACTIVITY-4-COMPLETION-REPORT.md | Activity 4 | In-Memory Caching Optimization, Interactive Demo & Project Reflection | Scheduled |
 
